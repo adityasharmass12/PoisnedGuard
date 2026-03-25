@@ -33,9 +33,15 @@ export function Results({ data, onReset }: ResultsProps) {
     );
   }
 
-  const isPhishing = data.is_phishing;
-  const confidence = data.confidence;
-  const url = data.url;
+  // Safely extract data with fallbacks
+  const confidence = 
+    data?.confidence || 
+    data?.probability || 
+    (data?.score ? data.score * 100 : null) || 
+    0;
+
+  const isPhishing = data?.is_phishing ?? data?.isPhishing ?? false;
+  const url = data?.url ?? "Unknown URL";
 
   return (
     <div className="flex flex-col items-center justify-center h-[80vh] text-center">
@@ -65,7 +71,7 @@ export function Results({ data, onReset }: ResultsProps) {
           <div className="bg-background/50 border border-neon-blue/30 rounded-lg p-4">
             <p className="text-gray-400 mb-2 text-sm">Confidence</p>
             <p className={`text-2xl font-bold ${isPhishing ? 'text-neon-red' : 'text-neon-green'}`}>
-              {confidence}%
+              {typeof confidence === 'number' ? confidence.toFixed(2) : confidence}%
             </p>
           </div>
           <div className="bg-background/50 border border-neon-blue/30 rounded-lg p-4">
