@@ -12,36 +12,33 @@ export function Dashboard({ onScanComplete }: DashboardProps) {
   const [error, setError] = useState('');
 
   const analyzeUrl = async (urlToCheck: string) => {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 512,
-        messages: [
-          {
-            role: 'user',
-            content: `You are a cybersecurity expert. Analyze this URL for phishing indicators ONLY: "${urlToCheck}"
+    // Use Flask backend instead of Claude API
+    try {
+      const response = await fetch('http://localhost:5000/api/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: urlToCheck })
+      });
 
-CRITICAL RULES:
-- Well-known legitimate sites (google.com, github.com, microsoft.com, amazon.com, apple.com, youtube.com, facebook.com, twitter.com, reddit.com, wikipedia.org, anthropic.com, openai.com, netflix.com, linkedin.com, etc.) must NEVER be flagged — confidence should be 2–8.
-- Only flag a URL if it clearly shows suspicious patterns like: misspelled brand names (paypa1.com, g00gle.com), random long strings in domain, IP-as-domain, excessive subdomains mimicking a brand, obvious phishing paths like /login/verify-account/suspended.
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.error || `API error ${response.status}`);
+      }
 
-Return ONLY raw JSON, absolutely no markdown, no backticks, no commentary:
-{"is_phishing":false,"confidence":5,"reasons":["Legitimate well-known domain"],"url":"${urlToCheck.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"}`
-          }
-        ]
-      })
-    });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      throw new Error(`API error ${response.status}: ${errText.slice(0, 100)}`);
+      const data = await response.json();
+      return {
+        is_phishing: data.is_phishing,
+        confidence: data.confidence,
+        reasons: data.is_phishing 
+          ? ['URL matched phishing indicators in ML model']
+          : ['URL appears to be legitimate'],
+        url: urlToCheck
+      };
+    } catch (err) {
+      console.error('Backend error:', err);
+      // Fallback error message
+      throw new Error(err instanceof Error ? err.message : 'Failed to connect to analysis server');
     }
-
-    const apiData = await response.json();
-    const raw = apiData.content[0].text.trim().replace(/^```json\s*/i, '').replace(/```\s*$/i, '');
-    return JSON.parse(raw);
   };
 
   const handleAnalysis = async () => {
@@ -56,7 +53,7 @@ Return ONLY raw JSON, absolutely no markdown, no backticks, no commentary:
       if (onScanComplete) onScanComplete(data);
     } catch (err) {
       console.error('Analysis error:', err);
-      setError('Analysis failed. Please check the URL format and try again.');
+      setError(err instanceof Error ? err.message : 'Analysis failed. Please check the URL format and try again.');
     } finally {
       setLoading(false);
     }
