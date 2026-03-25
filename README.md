@@ -1,13 +1,18 @@
 # Poisoned Dataset Detection System
 
 ## Overview
+<<<<<<< HEAD
 The Poisoned Dataset Detection System is an AI-driven solution designed to detect and eliminate malicious or manipulated data samples before they are used in machine learning model training. The system enhances data integrity, improves model reliability, and reduces vulnerabilities caused by data poisoning attacks.
 
 This project introduces a pre-training validation pipeline that ensures only clean and trustworthy data is used for building machine learning models.
+=======
+The Poisoned Dataset Detection System is an AI-based solution designed to detect and remove malicious or manipulated data samples before training machine learning models. It ensures data integrity, improves model reliability, and prevents performance issues caused by poisoned datasets.
+>>>>>>> 7e4b99a (First_Commit)
 
 ---
 
 ## Problem Statement
+<<<<<<< HEAD
 Machine learning models are highly dependent on the quality of training data. If datasets contain poisoned or adversarial samples, it can lead to incorrect predictions, biased outputs, and potential system failures.
 
 Existing approaches focus primarily on improving model performance but often overlook the integrity of the input data. This project addresses that gap by introducing a system that analyzes and cleans datasets before training.
@@ -53,29 +58,47 @@ An unsupervised anomaly detection algorithm that isolates anomalies instead of p
 
 ### Model Behavior Analysis
 Evaluates the impact of individual data points on model predictions to detect potentially harmful samples.
+=======
+Machine learning models depend heavily on data quality. If datasets contain poisoned or adversarial samples, it can lead to incorrect predictions, biased outputs, or system vulnerabilities. This project focuses on identifying and removing such harmful data before training.
+>>>>>>> 7e4b99a (First_Commit)
 
 ---
 
 ## Features
 - Multi-layer anomaly detection system  
+<<<<<<< HEAD
 - Support for tabular, image, and text datasets  
 - Confidence-based anomaly scoring  
 - Interactive dashboard for visualization  
 - Clean dataset export functionality  
+=======
+- Supports tabular, image, and text datasets  
+- Confidence-based scoring of suspicious samples  
+- Clean dataset export functionality  
+- Interactive dashboard for visualization  
+>>>>>>> 7e4b99a (First_Commit)
 - Scalable and modular architecture  
 
 ---
 
 ## Tech Stack
+<<<<<<< HEAD
 Frontend: React, Tailwind CSS, Framer Motion  
 Backend: FastAPI  
 Machine Learning: Scikit-learn, PyTorch  
 Deployment: Docker  
+=======
+- Frontend: React, Tailwind CSS, Framer Motion  
+- Backend: FastAPI  
+- Machine Learning: Scikit-learn, PyTorch  
+- Deployment: Docker  
+>>>>>>> 7e4b99a (First_Commit)
 
 ---
 
 ## Project Structure
 
+<<<<<<< HEAD
 project-root/  
 │  
 ├── frontend/  
@@ -95,6 +118,32 @@ project-root/
 
 ---
 
+=======
+project-root/
+│
+├── frontend/
+│   ├── src/
+│   ├── components/
+│   └── App.jsx
+│
+├── backend/
+│   ├── main.py
+│   ├── model/
+│   └── utils/
+│
+├── data/
+├── requirements.txt
+└── README.md
+
+---
+
+## Installation
+
+### Clone Repository
+git clone https://github.com/your-username/poisoned-dataset-detection.git  
+cd poisoned-dataset-detection  
+
+>>>>>>> 7e4b99a (First_Commit)
 ### Backend Setup
 cd backend  
 pip install -r requirements.txt  
@@ -109,12 +158,18 @@ npm run dev
 
 ## API Endpoint
 
+<<<<<<< HEAD
 POST /analyze/  
 Uploads dataset and performs anomaly detection.
+=======
+POST /detect/  
+Upload dataset and detect anomalies.
+>>>>>>> 7e4b99a (First_Commit)
 
 ---
 
 ## Usage
+<<<<<<< HEAD
 1. Upload dataset through the frontend interface  
 2. The backend processes the dataset using the detection pipeline  
 3. View summary including total, clean, and suspicious samples  
@@ -134,10 +189,17 @@ The system successfully identifies anomalous and suspicious data points in datas
 - Autonomous systems  
 - Cybersecurity pipelines  
 - Government and defense AI applications  
+=======
+1. Upload dataset through the frontend  
+2. System analyzes dataset  
+3. View suspicious and clean data  
+4. Download cleaned dataset  
+>>>>>>> 7e4b99a (First_Commit)
 
 ---
 
 ## Future Scope
+<<<<<<< HEAD
 - Integration of deep learning models such as Autoencoders  
 - Real-time dataset monitoring and streaming analysis  
 - Advanced visualization dashboards  
@@ -177,3 +239,14 @@ This project is developed for academic, research, and hackathon purposes.
 ### Clone the Repository
 ```bash
 https://github.com/adityasharmass12/PoisnedGuard.git
+=======
+- Integration of deep learning models (Autoencoders)  
+- Real-time dataset monitoring  
+- Advanced visualization dashboard  
+- User authentication system  
+
+---
+
+## License
+This project is developed for educational and research purposes.
+>>>>>>> 7e4b99a (First_Commit)
