@@ -16,6 +16,8 @@ import { About } from './pages/About';
 export default function App() {
   const [currentPage, setCurrentPage] = useState('landing');
   const [scanResult, setScanResult] = useState<any>(null);
+  const [datasetResult, setDatasetResult] = useState<any>(null);
+  const [datasetFile, setDatasetFile] = useState<string>('');
 
   useEffect(() => {
     const handleNavigation = (e: Event) => {
@@ -37,9 +39,13 @@ export default function App() {
           setCurrentPage('results');
         }} />;
       case 'upload':
-        return <Upload />;
+        return <Upload onUploadComplete={(data: any, file: string) => {
+          setDatasetResult(data);
+          setDatasetFile(file);
+          setCurrentPage('analysis');
+        }} />;
       case 'analysis':
-        return <Analysis />;
+        return <Analysis data={datasetResult} fileName={datasetFile} />;
       case 'results':
         return <Results data={scanResult} onReset={() => setCurrentPage('dashboard')} />;
       case 'about':

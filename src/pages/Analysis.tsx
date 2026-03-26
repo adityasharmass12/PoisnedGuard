@@ -1,7 +1,25 @@
 import { motion } from 'motion/react';
 import { Cpu } from 'lucide-react';
+import { AnalyticsDashboard } from '../components/AnalyticsDashboard';
 
-export function Analysis() {
+interface AnalysisProps {
+  data?: any;
+  fileName?: string;
+}
+
+export function Analysis({ data, fileName }: AnalysisProps) {
+  if (data) {
+    return (
+      <div className="max-w-4xl mx-auto pb-20">
+        <header className="mb-10 text-center">
+          <h1 className="text-3xl font-bold font-display text-white tracking-wide mb-2">Analytics Dashboard</h1>
+          <p className="text-gray-400 text-sm">Deep analysis results for <span className="text-neon-blue">{fileName}</span></p>
+        </header>
+        <AnalyticsDashboard result={data} fileName={fileName} />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center justify-center h-[80vh] text-center">
       <motion.div 
